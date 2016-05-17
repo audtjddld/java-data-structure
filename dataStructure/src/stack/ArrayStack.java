@@ -48,7 +48,7 @@ public class ArrayStack {
 	 */
 	public void push(Object data) throws Exception {
 		if(top == size -1) {
-			throw new Exception("stack overflow");
+			throw new Exception("stack overflow top : " + top);
 		}
 		top++;
 		array[top] = data;
@@ -63,7 +63,7 @@ public class ArrayStack {
 	 */
 	public Object peek() throws Exception {
 		if(top < 0) {
-			throw new Exception("stack is empty");
+			throw new Exception("stack is empty top : " + top);
 		}
 		return array[top];
 	}
@@ -74,9 +74,10 @@ public class ArrayStack {
 	 * @create date : 2016. 5. 17.
 	 * @throws Exception
 	 */
-	public void pop() throws Exception {
-		peek();
+	public Object pop() throws Exception {
+		Object data = peek();
 		top--;
+		return data;
 	}
 }
 

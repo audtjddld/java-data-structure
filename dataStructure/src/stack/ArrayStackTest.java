@@ -1,14 +1,12 @@
 package stack;
-import junit.framework.Assert;
 
-public class StackTest {
-	@SuppressWarnings("deprecation")
+public class ArrayStackTest {
 	public static void main(String[] args) throws Exception {
 		ArrayStack stack = new ArrayStack(5);
 		
 		stack.push("1");
 		stack.push("2");
-		Assert.assertEquals(stack.peek(), "2");
+		//Assert.assertEquals(stack.peek(), "2");
 		System.out.println(stack.peek());
 		stack.push("3");
 		stack.push("4");
@@ -16,14 +14,13 @@ public class StackTest {
 		
 		//stack.push("6");	// stack overflow
 		
-		stack.pop();
-		stack.pop();
-		stack.pop();
+		System.out.println(stack.pop());
+		System.out.println(stack.pop());
+		System.out.println(stack.pop());
 		
 		System.out.println(stack.peek());
-		stack.pop();
-		stack.pop();
-		stack.pop();	// stack is empty 발생
-		
+		System.out.println(stack.pop());
+		System.out.println(stack.pop());
+		System.out.println(stack.pop());	// stack is empty 발생
 	}
 }
