@@ -1,12 +1,12 @@
 package doublyLinkedList;
 
-public class MyLinkedList {
+public class DoubleLinkedList {
 
 	private Node header;
 
 	private int size;
 
-	public MyLinkedList() {
+	public DoubleLinkedList() {
 		header = new Node(null);
 		size = 0;
 	}

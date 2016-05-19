@@ -1,8 +1,8 @@
 package doublyLinkedList;
 
-public class MyLinkedListTest {
+public class DoubleLinkedListTest {
 	public static void main(String[] args) {
-		MyLinkedList arr = new MyLinkedList();
+		DoubleLinkedList arr = new DoubleLinkedList();
 		for (int i = 1; i <= 5; i++) {
 			arr.add("데이터-" + i);
 		}
