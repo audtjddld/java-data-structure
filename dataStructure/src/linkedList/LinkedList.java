@@ -1,7 +1,6 @@
 package linkedList;
 
 public class LinkedList {
-
 	private Node header;
 
 	private int size;
@@ -11,99 +10,91 @@ public class LinkedList {
 		size = 0;
 	}
 
-	private class Node {
-		private Object data;
-
-		private Node nextNode;
-
-		Node(Object data) {
-			this.data = data;
-			this.nextNode = null;
-		}
-	}
-
 	/**
-	 * 데이터 삽입
+	 * 지정한 인덱스의 노드를 반환한다.
 	 * 
-	 * @author 정명성
-	 * @create date : 2016. 5. 18.
-	 * @param data
-	 */
-	public void addFirst(Object data) {
-		Node newNode = new Node(data);
-
-		newNode.nextNode = header.nextNode;
-		header.nextNode = newNode;
-
-		size++;
-	}
-
-	private Node getNode(int index) {
-		if (index < 0 || index >= size) {
-			throw new IndexOutOfBoundsException("index : " + index + ", size :" + size);
-		}
-
-		Node node = header.nextNode;
-		for (int i = 0; i < index; i++) {
-			node = node.nextNode;
-		}
-
-		return node;
-	}
-
-	/**
-	 * 데이터 가져오기
-	 * 
-	 * @author 정명성
-	 * @create date : 2016. 5. 18.
 	 * @param index
 	 * @return
 	 */
+	private Node getNode(int index) {
+		if (index < 0 || index >= size) {
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+		}
+		// TODO 지정한 인덱스의 노드를 찾아서 반환한다.
+		Node result = header.nextNode;
+		for (int i = 0; i < index; i++) {
+			result = result.nextNode;
+		}
+		return result;
+	}
+
+	/**
+	 * 리스트의 처음에 지정한 데이터를 삽입한다.
+	 */
+	public void addFirst(Object data) {
+		// TODO 지정한 데이터를 가지는 노드를 만든 후 리스트의 처음에 삽입하고 사이즈 증가
+		Node newNode = new Node(data);
+		newNode.nextNode = header.nextNode;
+		header.nextNode = newNode;
+		size++;
+	}
+
+	/**
+	 * 지정한 인덱스에 데이터를 삽입한다.
+	 */
+	public void add(int index, Object data) {
+		// TODO 인덱스가 0일 경우 리스트의 처음에 지정한 데이터를 삽입한다.
+		if (index == 0) {
+			addFirst(data);
+			return;
+		}
+		// TODO 지정한 인덱스의 이전 노드와 해당 노드를 찾은 후 새로운 노드를 만들어 삽입하고 사이즈 증가
+		Node newNode = new Node(data);
+		Node previous = getNode(index - 1);
+		Node next = previous.nextNode;
+		newNode.nextNode = next;
+		previous.nextNode = newNode;
+		size++;
+	}
+
+	/**
+	 * 리스트의 마지막에 데이터를 추가한다.
+	 */
+	private void addLast(Object data) {
+		// TODO 마지막 인덱스에 데이터를 삽입한다.
+		add(size, data);
+	}
+
+	/**
+	 * 지정한 인덱스의 데이터를 반환한다.
+	 */
 	public Object get(int index) {
+		// TODO 지정한 인덱스의 노드를 찾은 후 찾은 노드의 데이터를 반환한다.
 		return getNode(index).data;
 	}
 
-	public Object removeFirst() {
+	/**
+	 * 리스트의 마지막에 데이터를 추가한다.
+	 */
+	public void add(Object data) {
+		// TODO 리스트의 마지막에 데이터를 추가한다.
+		addLast(data);
+	}
+
+	/**
+	 * 리스트의 첫번째 요소를 삭제하여 반환한다.
+	 */
+	private Object removeFirst() {
+		// TODO 첫번째 노드의 다음 노드를 첫번째 노드로 지정하고 첫번째 노드의 데이터를 반환한 후 사이즈 감소
 		Node firstNode = getNode(0);
 		header.nextNode = firstNode.nextNode;
 		size--;
 		return firstNode.data;
 	}
 
-	public Object getFirst() {
-		return get(0);
-	}
-
 	/**
-	 * 데이터 추가
-	 * 
-	 * @author 정명성
-	 * @create date : 2016. 5. 18.
-	 * @param index
-	 * @param data
+	 * 지정한 인덱스의 데이터를 삭제한 후 삭제한 데이터를 반환한다.
 	 */
-	public void add(int index, Object data) {
-		if (index == 0) {
-			addFirst(data);
-			return;
-		}
-
-		Node previous = getNode(index - 1);
-		Node next = previous.nextNode;
-		Node newNode = new Node(data);
-		previous.nextNode = newNode;
-		newNode.nextNode = next;
-		size++;
-	}
-
-	public void addLast(Object data) {
-		add(size, data);
-	}
-
-	public void add(Object data) {
-		addLast(data);
-	}
-
 	public Object remove(int index) {
 		if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException("index :" + index + ", size : " + size);
@@ -119,45 +110,15 @@ public class LinkedList {
 		return removeNode.data;
 	}
 
-	public int getNodeIndex(Object obj) {
-		if (size <= 0) {
-			return -1;
-		}
-		int index = 0;
-		Node node = header.nextNode;
-		Object nodeData = node.data;
-		while (!obj.equals(nodeData)) {
-			node = node.nextNode;
-			if (node == null) {
-				return -1;
-			}
-			nodeData = node.data;
-			index++;
-		}
-		return index;
-	}
-
-	public boolean remove(Object data) {
-		int nodeIndex = getNodeIndex(data);
-		if (nodeIndex == -1) {
-			return false;
-		} else {
-			remove(nodeIndex);
-			return true;
-		}
-	}
-
-	public Object removeLast() {
-		return remove(size - 1);
-	}
-
 	public int size() {
 		return size;
 	}
 
+	/**
+	 * 연결리스트의 모든 요소를 문자열로 반환한다.
+	 */
 	public String toString() {
 		StringBuffer result = new StringBuffer("[");
-
 		Node node = header.nextNode;
 		if (node != null) {
 			result.append(node.data);
@@ -171,4 +132,26 @@ public class LinkedList {
 		result.append("]");
 		return result.toString();
 	}
+
+	/**
+	 * 연결리스트의 구성 요소인 노드 클래스
+	 *
+	 */
+	private class Node {
+		/**
+		 * 저장할 객체
+		 */
+		private Object data;
+
+		/**
+		 * 다음 노드의 참조 변수
+		 */
+		private Node nextNode;
+
+		Node(Object data) {
+			this.data = data;
+			this.nextNode = null;
+		}
+	}
+
 }

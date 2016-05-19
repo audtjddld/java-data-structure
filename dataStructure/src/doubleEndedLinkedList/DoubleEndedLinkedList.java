@@ -1,18 +1,18 @@
-package doublyLinkedList;
+package doubleEndedLinkedList;
 
 /**
  * 큐 Queue
+ * 
  * @author 정명성
- * @create date : 2016. 5. 18.
- * doubleLinkedList.DoubleLinkedList.java
+ * @create date : 2016. 5. 18. doubleLinkedList.DoubleLinkedList.java
  */
-public class DoublyLinkedList {
+public class DoubleEndedLinkedList {
 
 	private Header header;
 
 	private int size;
 
-	DoublyLinkedList() {
+	DoubleEndedLinkedList() {
 		this.header = new Header();
 		this.size = 0;
 	}
@@ -28,10 +28,18 @@ public class DoublyLinkedList {
 		}
 	}
 
+	/**
+	 * Header는 처음 노드 (nextNode) 와 맨 마지막 노드 (lastNode)를 가리키고 있다.
+	 * 
+	 * @author 정명성
+	 * @create date : 2016. 5. 19.
+	 *         doubleEndedLinkedList.DoubleEndedLinkedList.java
+	 */
 	private class Header {
 		private Node nextNode;
 
 		private Node lastNode;
+
 		Header() {
 			this.nextNode = null;
 			this.lastNode = null;
@@ -73,7 +81,6 @@ public class DoublyLinkedList {
 			newNode.nextNode = next;
 			size++;
 		}
-
 	}
 
 	public void addLast(Object data) {
@@ -85,7 +92,6 @@ public class DoublyLinkedList {
 			header.lastNode = newNode;
 			size++;
 		}
-
 	}
 
 	public void add(Object data) {
@@ -96,12 +102,10 @@ public class DoublyLinkedList {
 		if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException("index : " + index + ", size :" + size);
 		}
-
 		Node node = header.nextNode;
 		for (int i = 0; i < index; i++) {
 			node = node.nextNode;
 		}
-
 		return node;
 	}
 
@@ -133,17 +137,14 @@ public class DoublyLinkedList {
 		} else if (index == 0) {
 			return removeFirst();
 		}
-
 		Node previous = getNode(index - 1);
 		Node removeNode = previous.nextNode;
 		Node next = removeNode.nextNode;
 		previous.nextNode = next;
 		size--;
-
 		if (previous.nextNode == null) {
 			header.lastNode = previous;
 		}
-
 		return removeNode.data;
 	}
 
